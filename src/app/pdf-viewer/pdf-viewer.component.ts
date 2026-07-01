@@ -50,6 +50,14 @@ if (typeof Promise.withResolvers === 'undefined' && window) {
   };
 }
 
+// @ts-expect-error This does not exist outside of polyfill which this is doing
+if (typeof Promise.try === 'undefined' && window) {
+  // @ts-expect-error This does not exist outside of polyfill which this is doing
+  window.Promise.try = (fn, ...args) => {
+    return new Promise((resolve) => resolve(fn(...args)));
+  };
+}
+
 
 export enum RenderTextMode {
   DISABLED,
@@ -121,7 +129,7 @@ export class PdfViewerComponent
       pdfWorkerSrc = (window as any).pdfWorkerSrc;
     } else {
       pdfWorkerSrc = `https://cdn.jsdelivr.net/npm/pdfjs-dist@${pdfJsVersion
-      }/legacy/build/pdf.worker.min.mjs`;
+      }/build/pdf.worker.min.mjs`;
     }
 
     GlobalWorkerOptions.workerSrc = pdfWorkerSrc;
@@ -374,7 +382,7 @@ export class PdfViewerComponent
 
     if (this._pdf) {
       this._latestScrolledPage = 0;
-      this._pdf.destroy();
+      this._pdf.cleanup();
       this._pdf = undefined;
     }
 
@@ -496,7 +504,6 @@ export class PdfViewerComponent
       cMapPacked: true,
       enableXfa: true
     };
-    params.isEvalSupported = false; // http://cve.org/CVERecord?id=CVE-2024-4367
 
     if (srcType === 'string') {
       params.url = this.src;

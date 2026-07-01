@@ -24,7 +24,7 @@ describe('AppComponent', () => {
   function setPdf(numPages: number) {
     (pdfViewer as any)._pdf = {
       numPages,
-      destroy: () => { }
+      cleanup: () => { }
     };
   }
 
@@ -115,7 +115,6 @@ describe('AppComponent', () => {
         cMapUrl,
         cMapPacked: true,
         enableXfa: true,
-        isEvalSupported: false,
       });
     });
 
@@ -128,7 +127,6 @@ describe('AppComponent', () => {
         cMapUrl,
         cMapPacked: true,
         enableXfa: true,
-        isEvalSupported: false,
       });
     });
 
@@ -142,7 +140,6 @@ describe('AppComponent', () => {
         cMapUrl,
         cMapPacked: true,
         enableXfa: true,
-        isEvalSupported: false,
       });
     });
   });
@@ -162,7 +159,7 @@ describe('AppComponent', () => {
       pdfViewer = pdfViewerFixture.debugElement.componentInstance;
 
       expect(GlobalWorkerOptions.workerSrc).toBe(`https://cdn.jsdelivr.net/npm/pdfjs-dist@${curPdfJsVersion
-        }/legacy/build/pdf.worker.min.mjs`);
+        }/build/pdf.worker.min.mjs`);
     })
 
     it('should support global override', () => {
@@ -181,7 +178,7 @@ describe('AppComponent', () => {
       pdfViewer = pdfViewerFixture.debugElement.componentInstance;
 
       expect(GlobalWorkerOptions.workerSrc).toBe(`https://cdn.jsdelivr.net/npm/pdfjs-dist@${curPdfJsVersion
-        }/legacy/build/pdf.worker.min.mjs`);
+        }/build/pdf.worker.min.mjs`);
     })
 
     it('should take version override with version match', () => {
