@@ -1,7 +1,7 @@
 {
   "name": "ng2-pdf-viewer",
   "version": "10.4.0",
-  "description": "Angular 5+ component for rendering PDF",
+  "description": "Angular PDF viewer component wrapping pdf.js",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -13,10 +13,8 @@
     "test": "ng test --watch false",
     "test:ci": "ng test --watch=false --browsers=ChromeHeadlessCustom",
     "test:w": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e",
     "packagr": "ng-packagr -p ng-package.json",
-    "docs": "ng build --configuration production --output-path docs --base-href ng2-pdf-viewer && cp ./docs/index.html ./docs/404.html"
+    "docs": "ng build --configuration production --output-path docs --base-href ng2-pdf-viewer && cp ./docs/browser/index.html ./docs/browser/404.html"
   },
   "private": false,
   "repository": {
@@ -26,12 +24,9 @@
   "keywords": [
     "angular",
     "pdf",
-    "angular",
     "angular-pdf",
-    "angular2-pdf",
-    "ng2",
     "ng2-pdf",
-    "angular5"
+    "pdf-viewer"
   ],
   "author": "Vadym Yatsyuk <vadym.yatsyuk@gmail.com>",
   "bugs": {
@@ -43,37 +38,33 @@
     "tslib": "^2.8.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^16.1.0",
-    "@angular/animations": "^16.1.0",
-    "@angular/cli": "~16.1.0",
-    "@angular/common": "^16.1.0",
-    "@angular/compiler": "^16.1.0",
-    "@angular/compiler-cli": "^16.1.0",
-    "@angular/core": "^16.1.0",
-    "@angular/forms": "^16.1.0",
-    "@angular/language-service": "16.1.0",
-    "@angular/material": "^16.0.4",
-    "@angular/platform-browser": "^16.1.0",
-    "@angular/platform-browser-dynamic": "^16.1.0",
-    "@angular/router": "^16.1.0",
-    "@types/jasmine": "~4.3.0",
-    "@types/jasminewd2": "~2.0.3",
+    "@angular-devkit/build-angular": "^20.0.0",
+    "@angular/animations": "^20.0.0",
+    "@angular/cdk": "^20.0.0",
+    "@angular/cli": "^20.0.0",
+    "@angular/common": "^20.0.0",
+    "@angular/compiler": "^20.0.0",
+    "@angular/compiler-cli": "^20.0.0",
+    "@angular/core": "^20.0.0",
+    "@angular/forms": "^20.0.0",
+    "@angular/language-service": "^20.0.0",
+    "@angular/material": "^20.0.0",
+    "@angular/platform-browser": "^20.0.0",
+    "@angular/platform-browser-dynamic": "^20.0.0",
+    "@angular/router": "^20.0.0",
+    "@types/jasmine": "~5.1.0",
     "@types/node": "^20.3.1",
-    "codelyzer": "^6.0.2",
-    "jasmine-core": "^4.6.0",
+    "jasmine-core": "~5.1.0",
     "jasmine-spec-reporter": "^7.0.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
-    "karma-coverage-istanbul-reporter": "~3.0.3",
+    "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
-    "ng-packagr": "^16.1.0",
-    "protractor": "~7.0.0",
-    "puppeteer": "^5.5.0",
+    "ng-packagr": "^20.0.0",
     "rxjs": "~7.8.0",
-    "tslint": "^6.1.3",
-    "typescript": "~5.1.3",
+    "typescript": "~5.8.0",
     "webpack-bundle-analyzer": "^4.7.0",
-    "zone.js": "~0.13.0"
+    "zone.js": "~0.15.0"
   }
 }
