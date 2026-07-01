@@ -14,7 +14,9 @@
     "test:ci": "ng test --watch=false --browsers=ChromeHeadlessCustom",
     "test:w": "ng test",
     "packagr": "ng-packagr -p ng-package.json",
-    "docs": "ng build --configuration production --output-path docs --base-href ng2-pdf-viewer && cp ./docs/browser/index.html ./docs/browser/404.html"
+    "docs": "ng build --configuration production --output-path docs --base-href ng2-pdf-viewer && cp ./docs/browser/index.html ./docs/browser/404.html",
+    "lint": "ng lint",
+    "lint:fix": "ng lint --fix"
   },
   "private": false,
   "repository": {
@@ -54,6 +56,10 @@
     "@angular/router": "^20.0.0",
     "@types/jasmine": "~5.1.0",
     "@types/node": "^20.3.1",
+    "angular-eslint": "^22.0.0",
+    "eslint": "^10.6.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-rxjs-x": "^1.0.2",
     "jasmine-core": "~5.1.0",
     "jasmine-spec-reporter": "^7.0.0",
     "karma": "~6.4.0",
@@ -64,6 +70,7 @@
     "ng-packagr": "^20.0.0",
     "rxjs": "~7.8.0",
     "typescript": "~5.8.0",
+    "typescript-eslint": "^8.62.1",
     "webpack-bundle-analyzer": "^4.7.0",
     "zone.js": "~0.15.0"
   }
