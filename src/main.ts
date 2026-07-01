@@ -1,12 +1,10 @@
-import { enableProdMode } from '@angular/core';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideNoopAnimations } from '@angular/platform-browser/animations';
 
-import { AppModule } from './app/app.module';
+import { AppComponent } from './app/app.component';
 import { environment } from './environments/environment';
 
 if (environment.production) {
-  enableProdMode();
-
   document.write(
     '<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>'
   );
@@ -15,6 +13,6 @@ if (environment.production) {
   );
 }
 
-platformBrowserDynamic()
-  .bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+bootstrapApplication(AppComponent, {
+  providers: [provideNoopAnimations()]
+}).catch(err => console.error(err));

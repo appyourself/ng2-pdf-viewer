@@ -2,17 +2,43 @@
  * Created by vadimdez on 21/06/16.
  */
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
-import {
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
+
+import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
+import type {
   PDFProgressData,
   PDFDocumentProxy,
   PDFSource,
   ZoomScale
-} from './pdf-viewer/pdf-viewer.module';
-
-import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
+} from './pdf-viewer/typings';
 
 @Component({
   selector: 'pdf-viewer-app',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSlideToggleModule,
+    MatToolbarModule,
+    MatSidenavModule,
+    MatTooltipModule,
+    MatSelectModule,
+    MatIconModule,
+    PdfViewerComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })

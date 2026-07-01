@@ -2,12 +2,13 @@ import { TestBed, ComponentFixture, waitForAsync } from '@angular/core/testing';
 import { Component } from '@angular/core';
 
 import { PdfViewerComponent } from './pdf-viewer.component';
-import { PdfViewerModule } from './pdf-viewer.module';
 
 import { GlobalWorkerOptions } from 'pdfjs-dist';
 import * as PDFJS from 'pdfjs-dist';
 
 @Component({
+  standalone: true,
+  imports: [PdfViewerComponent],
   template: `
     <pdf-viewer></pdf-viewer>
   `
@@ -29,8 +30,7 @@ describe('AppComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [TestComponent],
-      imports: [PdfViewerModule]
+      imports: [TestComponent, PdfViewerComponent]
     })
       .compileComponents()
       .then(() => {
