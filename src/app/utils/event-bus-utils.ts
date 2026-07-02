@@ -1,16 +1,7 @@
 import { fromEvent, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs';
 
 import type { EventBus } from 'pdfjs-dist/web/pdf_viewer.mjs';
-
-// interface EventBus {
-//   on(eventName: string, listener: Function): void;
-//   off(eventName: string, listener: Function): void;
-//   _listeners: any;
-//   dispatch(eventName: string, data: Object): void;
-//   _on(eventName: any, listener: any, options?: null): void;
-//   _off(eventName: any, listener: any, options?: null): void;
-// }
 
 export function createEventBus(pdfJsViewer: any, destroy$: Subject<void>) {
   const globalEventBus: EventBus = new pdfJsViewer.EventBus();
