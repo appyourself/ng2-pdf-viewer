@@ -96,6 +96,7 @@ export class PdfViewerComponent
 
   // Outputs
   readonly afterLoadComplete = output<PDFDocumentProxy>();
+  readonly pageChange = output<number>();
   readonly pageRendered = output<CustomEvent>();
   readonly pageInitialized = output<CustomEvent>();
   readonly textLayerRendered = output<CustomEvent>();
@@ -108,6 +109,7 @@ export class PdfViewerComponent
   readonly renderText = input(true);
   readonly renderTextMode = input<RenderTextMode>(RenderTextMode.ENABLED);
   readonly stickToPage = input(false);
+  readonly pageScrollOffset = input(0);
   readonly originalSize = input(true);
   readonly showAll = input(true);
   readonly fitToPage = input(false);
@@ -183,6 +185,7 @@ export class PdfViewerComponent
       if (isSSR() || !this.isVisible || !this._pdf) return;
       if (page === this._latestScrolledPage) return;
       this.pdfViewer.scrollPageIntoView({ pageNumber: page });
+      this.applyPageScrollOffset();
       this.update();
     });
   });
@@ -504,6 +507,7 @@ export class PdfViewerComponent
     const validPage = this.getValidPageNumber(this.page());
     if (validPage !== this.page()) {
       this.page.set(validPage);
+      this.pageChange.emit(validPage);
     }
 
     this.render();
@@ -525,6 +529,7 @@ export class PdfViewerComponent
     if (this.stickToPage()) {
       setTimeout(() => {
         this.pdfViewer.currentPageNumber = currentPage;
+        this.applyPageScrollOffset();
       });
     }
 
@@ -572,6 +577,14 @@ export class PdfViewerComponent
     }
 
     return (this._zoom() * ratio) / PdfViewerComponent.CSS_UNITS;
+  }
+
+  private applyPageScrollOffset(): void {
+    const offset = this.pageScrollOffset();
+    if (offset && this.pdfViewerContainer) {
+      const container = this.pdfViewerContainer.nativeElement;
+      container.scrollTop = Math.max(0, container.scrollTop - offset);
+    }
   }
 
   private resetPdfDocument() {

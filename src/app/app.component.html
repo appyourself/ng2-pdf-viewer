@@ -16,25 +16,25 @@
 
     @if (!mobile) {
       <iframe src="https://ghbtns.com/github-btn.html?user=vadimdez&repo=ng2-pdf-viewer&type=star&count=true"
-      frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
+              frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
     }
 
-    <a href="https://github.com/vadimdez/ng2-pdf-viewer" mat-raised-button class="button">Get Started</a>
+    <a class="button" href="https://github.com/vadimdez/ng2-pdf-viewer" mat-raised-button>Get Started</a>
   </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-drawer-container class="example-container">
-  <mat-drawer [mode]="mobile ? 'push' : 'side'" #drawer [opened]="!mobile">
+  <mat-drawer #drawer [mode]="mobile ? 'push' : 'side'" [opened]="!mobile">
     <mat-form-field class="mb full-width">
       <mat-label>Set URL of the PDF file</mat-label>
-      <input matInput type="text" placeholder="Set URL of the PDF file" [(ngModel)]="pdfSrc">
+      <input [(ngModel)]="pdfSrc" matInput placeholder="Set URL of the PDF file" type="text">
     </mat-form-field>
 
     <div class="select-file__container">
       <p>
         Or render preview by just selecting PDF file (no upload required)
       </p>
-      <input (change)="onFileSelected()" type="file" id="file">
+      <input (change)="onFileSelected()" id="file" type="file">
     </div>
 
     @if (error) {
@@ -49,7 +49,7 @@
       </mat-slide-toggle>
     </div>
 
-    <div class="mb" [hidden]="!originalSize">
+    <div [hidden]="!originalSize" class="mb">
       <mat-slide-toggle [(ngModel)]="fitToPage">
         Fit to page
       </mat-slide-toggle>
@@ -86,26 +86,26 @@
 
     <div class="mb full-width">
       <button (click)="incrementZoom(-0.1)" mat-button type="button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+             stroke-width="2" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
           <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          <line x1="8" y1="11" x2="14" y2="11"></line>
+          <line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+          <line x1="8" x2="14" y1="11" y2="11"></line>
         </svg>
       </button>
 
       <mat-form-field class="page-number">
-        <input matInput type="number" placeholder="Zoom" [(ngModel)]="zoom" pattern="-?[0-9]*(\.[0-9]+)?">
+        <input [(ngModel)]="zoom" matInput pattern="-?[0-9]*(\.[0-9]+)?" placeholder="Zoom" type="number">
         <mat-error>Input is not a number!</mat-error>
       </mat-form-field>
 
       <button (click)="incrementZoom(0.1)" mat-button type="button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+             stroke-width="2" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
           <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          <line x1="11" y1="8" x2="11" y2="14"></line>
-          <line x1="8" y1="11" x2="14" y2="11"></line>
+          <line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+          <line x1="11" x2="11" y1="8" y2="14"></line>
+          <line x1="8" x2="14" y1="11" y2="11"></line>
         </svg>
       </button>
     </div>
@@ -138,22 +138,23 @@
     }
 
     <div class="mb">
-      <button (click)="rotate(-90)" mat-button type="button" matTooltip="Rotate left" [matTooltipPosition]="'above'">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="scale(-1,1)">
+      <button (click)="rotate(-90)" [matTooltipPosition]="'above'" mat-button matTooltip="Rotate left" type="button">
+        <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+             stroke-width="2" transform="scale(-1,1)" viewBox="0 0 24 24" width="20"
+             xmlns="http://www.w3.org/2000/svg">
           <polyline points="23 4 23 10 17 10"></polyline>
           <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
         </svg>
       </button>
 
       <mat-form-field class="page-number">
-        <input matInput type="number" placeholder="Rotation" [ngModel]="rotation" disabled>
+        <input [ngModel]="rotation" disabled matInput placeholder="Rotation" type="number">
         <mat-error>Input is not a number!</mat-error>
       </mat-form-field>
 
-      <button (click)="rotate(90)" mat-button type="button" matTooltip="Rotate right" [matTooltipPosition]="'above'">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <button (click)="rotate(90)" [matTooltipPosition]="'above'" mat-button matTooltip="Rotate right" type="button">
+        <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+             stroke-width="2" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
           <polyline points="23 4 23 10 17 10"></polyline>
           <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
         </svg>
@@ -194,8 +195,9 @@
     <div class="mb">
       <mat-form-field class="full-width">
         <mat-label>Search</mat-label>
-        <input #queryInp matInput id="pdfQueryInput" type="text" placeholder="Search..." [value]="pdfQuery"
-          (input)="searchQueryChanged($any($event.target).value)" (keyup.enter)="searchQueryChanged(queryInp.value)">
+        <input #queryInp (input)="searchQueryChanged($any($event.target).value)" (keyup.enter)="searchQueryChanged(queryInp.value)" [value]="pdfQuery" id="pdfQueryInput" matInput
+               placeholder="Search..."
+               type="text">
         <mat-hint>Search in entire pdf</mat-hint>
       </mat-form-field>
     </div>
@@ -212,24 +214,25 @@
 
 
   <mat-drawer-content>
-    <pdf-viewer [src]="pdfSrc"
-      [(page)]="page"
-      [rotation]="rotation"
-      [originalSize]="originalSize"
-      [showAll]="showAll"
-      [fitToPage]="fitToPage"
-      (afterLoadComplete)="afterLoadComplete($event)"
-      [zoom]="zoom"
-      [zoomScale]="zoomScale"
-      [stickToPage]="stickToPage"
-      [renderText]="renderText"
-      [externalLinkTarget]="'blank'"
-      [autoresize]="autoresize"
-      (onError)="onError($event)"
-      (onProgress)="onProgress($event)"
-      (pageRendered)="pageRendered($event)"
-      (pageInitialized)="pageInitialized($event)"
-      [showBorders]="false"
+    <pdf-viewer (afterLoadComplete)="afterLoadComplete($event)"
+                (onError)="onError($event)"
+                (onProgress)="onProgress($event)"
+                (pageInitialized)="pageInitialized($event)"
+                (pageRendered)="pageRendered($event)"
+                [(page)]="page"
+                [autoresize]="autoresize"
+                [externalLinkTarget]="'blank'"
+                [fitToPage]="fitToPage"
+                [originalSize]="originalSize"
+                [pageScrollOffset]="200"
+                [renderText]="renderText"
+                [rotation]="rotation"
+                [showAll]="showAll"
+                [showBorders]="false"
+                [src]="pdfSrc"
+                [stickToPage]="stickToPage"
+                [zoomScale]="zoomScale"
+                [zoom]="zoom"
     ></pdf-viewer>
   </mat-drawer-content>
 </mat-drawer-container>
