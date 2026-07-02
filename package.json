@@ -1,6 +1,9 @@
 {
-  "name": "ng2-pdf-viewer",
-  "version": "10.4.0",
+  "name": "@appyourself/ng2-pdf-viewer",
+  "version": "1.0.0",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "description": "Angular PDF viewer component wrapping pdf.js",
   "license": "MIT",
   "scripts": {
