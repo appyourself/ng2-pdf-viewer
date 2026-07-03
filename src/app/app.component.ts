@@ -168,9 +168,8 @@ export class AppComponent implements OnInit {
   setPassword(password: string) {
     let newSrc: PDFSource;
 
-    if (this.pdfSrc instanceof ArrayBuffer) {
+    if (this.pdfSrc instanceof ArrayBuffer || this.pdfSrc instanceof Uint8Array) {
       newSrc = { data: this.pdfSrc as any };
-      // newSrc = { data: this.pdfSrc };
     } else if (typeof this.pdfSrc === 'string') {
       newSrc = { url: this.pdfSrc };
     } else {

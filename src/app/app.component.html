@@ -1,39 +1,47 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <button class="toggle-menu" mat-raised-button (click)="drawer.toggle()" *ngIf="mobile">
-      <mat-icon>menu</mat-icon>
-    </button>
+    @if (mobile) {
+      <button class="toggle-menu" mat-raised-button (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    }
 
     <span class="title {{mobile? 'mob' : 'desk'}}">ng2-pdf-viewer</span>
 
-    <span class="description hide-md" *ngIf="!mobile">Angular 5+ Component to render PDF</span>
+    @if (!mobile) {
+      <span class="description hide-md">Angular 5+ Component to render PDF</span>
+    }
 
     <span class="spacer"></span>
 
-    <iframe src="https://ghbtns.com/github-btn.html?user=vadimdez&repo=ng2-pdf-viewer&type=star&count=true"
-      frameborder="0" scrolling="0" width="170px" height="20px" *ngIf="!mobile"></iframe>
+    @if (!mobile) {
+      <iframe src="https://ghbtns.com/github-btn.html?user=vadimdez&repo=ng2-pdf-viewer&type=star&count=true"
+              frameborder="0" scrolling="0" width="170px" height="20px"></iframe>
+    }
 
-    <a href="https://github.com/vadimdez/ng2-pdf-viewer" mat-raised-button class="button">Get Started</a>
+    <a class="button" href="https://github.com/vadimdez/ng2-pdf-viewer" mat-raised-button>Get Started</a>
   </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-drawer-container class="example-container">
-  <mat-drawer [mode]="mobile ? 'push' : 'side'" #drawer [opened]="!mobile">
+  <mat-drawer #drawer [mode]="mobile ? 'push' : 'side'" [opened]="!mobile">
     <mat-form-field class="mb full-width">
       <mat-label>Set URL of the PDF file</mat-label>
-      <input matInput type="text" placeholder="Set URL of the PDF file" [(ngModel)]="pdfSrc">
+      <input [(ngModel)]="pdfSrc" matInput placeholder="Set URL of the PDF file" type="text">
     </mat-form-field>
 
     <div class="select-file__container">
       <p>
         Or render preview by just selecting PDF file (no upload required)
       </p>
-      <input (change)="onFileSelected()" type="file" id="file">
+      <input (change)="onFileSelected()" id="file" type="file">
     </div>
 
-    <div *ngIf="error" class="error mb">
-      {{ error.message | json }}
-    </div>
+    @if (error) {
+      <div class="error mb">
+        {{ error.message | json }}
+      </div>
+    }
 
     <div class="mb">
       <mat-slide-toggle [(ngModel)]="originalSize">
@@ -41,7 +49,7 @@
       </mat-slide-toggle>
     </div>
 
-    <div class="mb" [hidden]="!originalSize">
+    <div [hidden]="!originalSize" class="mb">
       <mat-slide-toggle [(ngModel)]="fitToPage">
         Fit to page
       </mat-slide-toggle>
@@ -65,149 +73,166 @@
       </mat-slide-toggle>
     </div>
 
-    <mat-form-field *ngIf="!originalSize" class="full-width">
-      <mat-label>Select an option</mat-label>
-      <mat-select [(value)]="zoomScale">
-        <mat-option value="page-width">Page Width</mat-option>
-        <mat-option value="page-height">Page Height</mat-option>
-        <mat-option value="page-fit">Page Fit</mat-option>
-      </mat-select>
-    </mat-form-field>
+    @if (!originalSize) {
+      <mat-form-field class="full-width">
+        <mat-label>Select an option</mat-label>
+        <mat-select [(value)]="zoomScale">
+          <mat-option value="page-width">Page Width</mat-option>
+          <mat-option value="page-height">Page Height</mat-option>
+          <mat-option value="page-fit">Page Fit</mat-option>
+        </mat-select>
+      </mat-form-field>
+    }
 
     <div class="mb full-width">
       <button (click)="incrementZoom(-0.1)" mat-button type="button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+             stroke-width="2" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
           <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          <line x1="8" y1="11" x2="14" y2="11"></line>
+          <line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+          <line x1="8" x2="14" y1="11" y2="11"></line>
         </svg>
       </button>
 
       <mat-form-field class="page-number">
-        <input matInput type="number" placeholder="Zoom" [(ngModel)]="zoom" pattern="-?[0-9]*(\.[0-9]+)?">
+        <input [(ngModel)]="zoom" matInput pattern="-?[0-9]*(\.[0-9]+)?" placeholder="Zoom" type="number">
         <mat-error>Input is not a number!</mat-error>
       </mat-form-field>
 
       <button (click)="incrementZoom(0.1)" mat-button type="button">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+             stroke-width="2" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
           <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          <line x1="11" y1="8" x2="11" y2="14"></line>
-          <line x1="8" y1="11" x2="14" y2="11"></line>
+          <line x1="21" x2="16.65" y1="21" y2="16.65"></line>
+          <line x1="11" x2="11" y1="8" y2="14"></line>
+          <line x1="8" x2="14" y1="11" y2="11"></line>
         </svg>
       </button>
     </div>
 
 
-    <div *ngIf="showAll" class="mb">
-      <mat-slide-toggle [(ngModel)]="stickToPage">
-        Stick to page
-      </mat-slide-toggle>
-    </div>
+    @if (showAll) {
+      <div class="mb">
+        <mat-slide-toggle [(ngModel)]="stickToPage">
+          Stick to page
+        </mat-slide-toggle>
+      </div>
+    }
 
-    <div *ngIf="stickToPage && showAll || !showAll" class="mb">
-      <button (click)="incrementPage(-1)" mat-button type="button">
-        Previous
-      </button>
-
-      <mat-form-field class="page-number">
-        <input matInput type="number" placeholder="Page" [(ngModel)]="page" pattern="-?[0-9]*(\.[0-9]+)?">
-        <mat-error>Input is not a number!</mat-error>
-      </mat-form-field>
-
-      <span *ngIf="pdf">of {{ pdf.numPages }}</span>
-      <button (click)="incrementPage(1)" mat-button type="button">
-        Next
-      </button>
-    </div>
+    @if (stickToPage && showAll || !showAll) {
+      <div class="mb">
+        <button (click)="incrementPage(-1)" mat-button type="button">
+          Previous
+        </button>
+        <mat-form-field class="page-number">
+          <input matInput type="number" placeholder="Page" [(ngModel)]="page" pattern="-?[0-9]*(\.[0-9]+)?">
+          <mat-error>Input is not a number!</mat-error>
+        </mat-form-field>
+        @if (pdf) {
+          <span>of {{ pdf.numPages }}</span>
+        }
+        <button (click)="incrementPage(1)" mat-button type="button">
+          Next
+        </button>
+      </div>
+    }
 
     <div class="mb">
-      <button (click)="rotate(-90)" mat-button type="button" matTooltip="Rotate left" [matTooltipPosition]="'above'">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="scale(-1,1)">
+      <button (click)="rotate(-90)" [matTooltipPosition]="'above'" mat-button matTooltip="Rotate left" type="button">
+        <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+             stroke-width="2" transform="scale(-1,1)" viewBox="0 0 24 24" width="20"
+             xmlns="http://www.w3.org/2000/svg">
           <polyline points="23 4 23 10 17 10"></polyline>
           <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
         </svg>
       </button>
 
       <mat-form-field class="page-number">
-        <input matInput type="number" placeholder="Rotation" [ngModel]="rotation" disabled>
+        <input [ngModel]="rotation" disabled matInput placeholder="Rotation" type="number">
         <mat-error>Input is not a number!</mat-error>
       </mat-form-field>
 
-      <button (click)="rotate(90)" mat-button type="button" matTooltip="Rotate right" [matTooltipPosition]="'above'">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <button (click)="rotate(90)" [matTooltipPosition]="'above'" mat-button matTooltip="Rotate right" type="button">
+        <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+             stroke-width="2" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg">
           <polyline points="23 4 23 10 17 10"></polyline>
           <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
         </svg>
       </button>
     </div>
 
-    <div *ngIf="showAll" class="mb">
-      <mat-slide-toggle [(ngModel)]="isOutlineShown">
-        Show outline
-      </mat-slide-toggle>
-    </div>
+    @if (showAll) {
+      <div class="mb">
+        <mat-slide-toggle [(ngModel)]="isOutlineShown">
+          Show outline
+        </mat-slide-toggle>
+      </div>
+    }
 
-    <div *ngIf="showAll && isOutlineShown">
-      <ul *ngFor="let item of outline" class="outline-list">
-        <li>
-          <a (click)="navigateTo(item.dest)">
-            {{ item.title }}
-          </a>
-
-          <ul *ngFor="let child of item.items">
+    @if (showAll && isOutlineShown) {
+      <div>
+        @for (item of outline; track item) {
+          <ul class="outline-list">
             <li>
-              <a (click)="navigateTo(child.dest)">
-                {{ child.title }}
+              <a (click)="navigateTo(item.dest)">
+                {{ item.title }}
               </a>
+              @for (child of item.items; track child) {
+                <ul>
+                  <li>
+                    <a (click)="navigateTo(child.dest)">
+                      {{ child.title }}
+                    </a>
+                  </li>
+                </ul>
+              }
             </li>
           </ul>
-        </li>
-      </ul>
-    </div>
+        }
+      </div>
+    }
 
     <div class="mb">
       <mat-form-field class="full-width">
         <mat-label>Search</mat-label>
-        <input #queryInp matInput id="pdfQueryInput" type="text" placeholder="Search..." [value]="pdfQuery"
-          (input)="searchQueryChanged($any($event.target).value)" (keyup.enter)="searchQueryChanged(queryInp.value)">
+        <input #queryInp (input)="searchQueryChanged($any($event.target).value)" (keyup.enter)="searchQueryChanged(queryInp.value)" [value]="pdfQuery" id="pdfQueryInput" matInput
+               placeholder="Search..."
+               type="text">
         <mat-hint>Search in entire pdf</mat-hint>
       </mat-form-field>
     </div>
 
-    <div *ngIf="!isLoaded && !error && progressData" id="progress">
-      <div class="bg">
-        <div class="bar" [style.width]="progressData.loaded / progressData.total * 100 + '%'"></div>
+    @if (!isLoaded && !error && progressData) {
+      <div id="progress">
+        <div class="bg">
+          <div class="bar" [style.width]="progressData.loaded / progressData.total * 100 + '%'"></div>
+        </div>
+        <span>{{ getInt(progressData.loaded / progressData.total * 100) }}%</span>
       </div>
-      <span>{{ getInt(progressData.loaded / progressData.total * 100) }}%</span>
-    </div>
+    }
   </mat-drawer>
 
 
   <mat-drawer-content>
-    <pdf-viewer [src]="pdfSrc"
+    <pdf-viewer (afterLoadComplete)="afterLoadComplete($event)"
+                (onError)="onError($event)"
+                (onProgress)="onProgress($event)"
+                (pageInitialized)="pageInitialized($event)"
+                (pageRendered)="pageRendered($event)"
                 [(page)]="page"
-                [rotation]="rotation"
-                [original-size]="originalSize"
-                [show-all]="showAll"
-                [fit-to-page]="fitToPage"
-                (after-load-complete)="afterLoadComplete($event)"
-                [zoom]="zoom"
-                [zoom-scale]="zoomScale"
-                [stick-to-page]="stickToPage"
-                [render-text]="renderText"
-                [external-link-target]="'blank'"
                 [autoresize]="autoresize"
-                (error)="onError($event)"
-                (on-progress)="onProgress($event)"
-                (page-rendered)="pageRendered($event)"
-                (pages-initialized)="pageInitialized($event)"
-                (pageChange)="pageChange($event)"
-                [show-borders]="false"
+                [externalLinkTarget]="'blank'"
+                [fitToPage]="fitToPage"
+                [originalSize]="originalSize"
+                [pageScrollOffset]="200"
+                [renderText]="renderText"
+                [rotation]="rotation"
+                [showAll]="showAll"
+                [showBorders]="false"
+                [src]="pdfSrc"
+                [stickToPage]="stickToPage"
+                [zoomScale]="zoomScale"
+                [zoom]="zoom"
     ></pdf-viewer>
   </mat-drawer-content>
 </mat-drawer-container>

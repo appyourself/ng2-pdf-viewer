@@ -24,7 +24,7 @@ describe('AppComponent', () => {
   function setPdf(numPages: number) {
     (pdfViewer as any)._pdf = {
       numPages,
-      destroy: () => { }
+      cleanup: () => { }
     };
   }
 
@@ -94,55 +94,52 @@ describe('AppComponent', () => {
     it('should check default url', () => {
       const PDFJS = require('pdfjs-dist');
 
-      expect((pdfViewer as any)._cMapsUrl).toBe(
+      expect(pdfViewer.cMapsUrl()).toBe(
         `https://unpkg.com/pdfjs-dist@${(PDFJS as any).version}/cmaps/`
       );
     });
 
     it('should return src', () => {
-      pdfViewer.cMapsUrl = "";
-      pdfViewer.src = src;
+      pdfViewerFixture.componentRef.setInput('cMapsUrl', '');
+      pdfViewerFixture.componentRef.setInput('src', src);
 
       expect((pdfViewer as any).getDocumentParams()).toBe(src);
     });
 
     it('should return object', () => {
-      pdfViewer.src = src;
-      pdfViewer.cMapsUrl = cMapUrl;
+      pdfViewerFixture.componentRef.setInput('src', src);
+      pdfViewerFixture.componentRef.setInput('cMapsUrl', cMapUrl);
 
       expect((pdfViewer as any).getDocumentParams()).toEqual({
         url: src,
         cMapUrl,
         cMapPacked: true,
         enableXfa: true,
-        isEvalSupported: false,
       });
     });
 
     it('should return object when src is an object', () => {
-      pdfViewer.src = { url: src };
-      pdfViewer.cMapsUrl = cMapUrl;
+      pdfViewerFixture.componentRef.setInput('src', { url: src });
+      pdfViewerFixture.componentRef.setInput('cMapsUrl', cMapUrl);
 
       expect((pdfViewer as any).getDocumentParams()).toEqual({
         url: src,
         cMapUrl,
         cMapPacked: true,
         enableXfa: true,
-        isEvalSupported: false,
       });
     });
 
     it('should return object when src is an object with byte array', () => {
       const srcUrl = new Uint8Array(1);
-      pdfViewer.src = { url: srcUrl as any };
-      pdfViewer.cMapsUrl = cMapUrl;
+      pdfViewerFixture.componentRef.setInput('src', { url: srcUrl as any });
+      pdfViewerFixture.componentRef.setInput('cMapsUrl', cMapUrl);
 
       expect((pdfViewer as any).getDocumentParams()).toEqual({
         url: srcUrl,
         cMapUrl,
         cMapPacked: true,
         enableXfa: true,
-        isEvalSupported: false,
       });
     });
   });
@@ -162,7 +159,7 @@ describe('AppComponent', () => {
       pdfViewer = pdfViewerFixture.debugElement.componentInstance;
 
       expect(GlobalWorkerOptions.workerSrc).toBe(`https://cdn.jsdelivr.net/npm/pdfjs-dist@${curPdfJsVersion
-        }/legacy/build/pdf.worker.min.mjs`);
+        }/build/pdf.worker.min.mjs`);
     })
 
     it('should support global override', () => {
@@ -181,7 +178,7 @@ describe('AppComponent', () => {
       pdfViewer = pdfViewerFixture.debugElement.componentInstance;
 
       expect(GlobalWorkerOptions.workerSrc).toBe(`https://cdn.jsdelivr.net/npm/pdfjs-dist@${curPdfJsVersion
-        }/legacy/build/pdf.worker.min.mjs`);
+        }/build/pdf.worker.min.mjs`);
     })
 
     it('should take version override with version match', () => {
