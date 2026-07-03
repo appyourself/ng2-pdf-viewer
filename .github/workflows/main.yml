@@ -22,7 +22,7 @@ jobs:
           scope: '@appyourself'
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: Build
         run: npm run build
