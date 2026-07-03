@@ -28,6 +28,7 @@ jobs:
         run: npm run build
 
       - name: Publish
-        run: npm publish dist/ng2-pdf-viewer
+        working-directory: dist/ng2-pdf-viewer
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
