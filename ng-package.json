@@ -3,5 +3,8 @@
   "lib": {
     "entryFile": "public_api.ts"
   },
-  "allowedNonPeerDependencies": ["pdfjs-dist"]
+  "allowedNonPeerDependencies": [
+    "pdfjs-dist"
+  ],
+  "dest": "dist"
 }

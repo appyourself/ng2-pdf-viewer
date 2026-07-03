@@ -24,11 +24,11 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Build
-        run: npm run build
+      - name: Build library
+        run: npm run packagr
 
       - name: Publish
-        working-directory: dist/ng2-pdf-viewer
+        working-directory: dist
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
